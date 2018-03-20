@@ -9,9 +9,9 @@ body {
 
 nav ul {
   display: flex;
-  justify-content: space-between;
 
   li {
-      list-style: none;
+    margin-right: 1em;
+    list-style: none;
   }
 }
