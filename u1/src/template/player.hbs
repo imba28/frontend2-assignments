@@ -1,35 +1,46 @@
-<h2>
-    {{name}}
-</h2>
-<p>
-    Birthday: {{dateFormat birthday format="d.m.Y"}}
-</p>
-<p>
-    Website: <a href="{{website}}" target="_blank">{{website}}</a>
-</p>
-<hr>
+<div class="row">
+    <div class="col col-lg-4">
+        <img class="avatar" src="{{avatar}}" alt="avatar {{name}}">
+    </div>
+    <div class="col col-lg-8">
+        <h2>
+            {{name}}
+        </h2>
+        <p>
+            Birthday: {{dateFormat birthday format="d.m.Y"}}
+        </p>
+        <p>
+            Website:
+            <a href="{{website}}" target="_blank">{{website}}</a>
+        </p>
+        <p>
+            Age: <b>{{getAge birthday}}</b>
+        </p>
+    </div>
+    <hr>
+</div>
+<div class="mt-2">
+    <h3>Games</h3>
 
-<h3>Games</h3>
-
-{{#each games}}
-<p>
-    <strong>{{name}}</strong>, 
-    gegen {{oponent}}
-</p>
-<table>
-    <thead>
-        <th>Round</th>
-        <th>Color</th>
-        <th>Result</th>
-    </thead>
-    <tbody>
-    {{#each rounds}}
-    <tr>
-        <td>{{id}}</td>
-        <td>{{color}}</td>
-        <td>{{result}}</td>
-    </tr>
+    {{#each games}}
+    <p>
+        <strong>{{name}}</strong>, gegen {{oponent}}
+    </p>
+    <table class="table">
+        <thead>
+            <th>Round</th>
+            <th>Color</th>
+            <th>Result</th>
+        </thead>
+        <tbody>
+            {{#each rounds}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{color}}</td>
+                <td>{{result}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
     {{/each}}
-    </tbody>
-</table>
-{{/each}}
+</div>

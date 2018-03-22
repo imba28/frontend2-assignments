@@ -7,11 +7,25 @@ body {
   max-width: 1024px;
 }
 
-nav ul {
+header {
   display: flex;
+  justify-content: space-between;
+  padding-top: 1em;
 
-  li {
-    margin-right: 1em;
-    list-style: none;
+  nav ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    
+    li {
+      margin-right: 1em;
+      list-style: none;
+    }
   }
+}
+
+.avatar {
+  max-width: 100%;
+  height: auto;
 }
