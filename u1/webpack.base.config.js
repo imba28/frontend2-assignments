@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
-    entry: './src/js/app.js',
+    entry: './src/app.js',
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
@@ -26,8 +26,8 @@ module.exports = {
         }),
         new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
-            title: 'meine Projekt',
-            template: path.join(__dirname, 'index.html')
+            title: 'Chess',
+            template: path.join(__dirname, 'src', 'public', 'static', 'index.html')
         })
     ],
     module: {
