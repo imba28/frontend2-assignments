@@ -6,3 +6,7 @@ export function dateFormat(input, args) {
 
     return date.format(format);
 }
+
+export function getAge(input) {
+    return moment().diff(input, 'years');
+}

@@ -2,8 +2,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '@/css/style.scss';
 
 import Handlebars from 'handlebars';
-import {dateFormat} from '@/js/helper';
+import {dateFormat, getAge} from '@/js/helper';
 Handlebars.registerHelper('dateFormat', dateFormat);
+Handlebars.registerHelper('getAge', getAge);
 
 import {route, goto} from '@/js/router';
 import routes from '@/js/routes';
