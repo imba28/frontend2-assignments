@@ -11,19 +11,18 @@ function route(route, callback = () => {}) {
             params: []
         }
 
-        const parts = route.split('/');
-        let regex = '';
-        for (let part of parts) {
+        opt.regex = route.split('/').map((part) => {
             if (part[0] == ':') {
-                opt.regex.push('([a-zA-Z0-9\-]+)');
                 opt.params.push(part.substring(1, part.length));
+                part = '([a-zA-Z0-9\-]+)';
             } else {
-                if(part == '*') part = '.+';
-                opt.regex.push(part);
+                if (part == '*') part = '.+';
             }
-        }
 
-        opt.regex = `^${opt.regex.join('\/')}$`;
+            return part;
+        }).join('\/');
+
+        opt.regex = `^${opt.regex}$`;
         routes.set(route, opt);
     }
     else {
@@ -37,13 +36,10 @@ function init() {
     });
 
     history.replaceState(document.location.pathname, '', document.location.href);
-
-    // register click events
     attachClickHandler();
 }
 
-function attachClickHandler(elem = null) {
-    let elems = $("a[href]");
+function attachClickHandler() {
     $(document).on("click", "a[href]", function(e) {
         const urlParsed = url.parse($(this).attr('href'));
         const rel = $(this).attr("rel") || false;
@@ -58,12 +54,10 @@ function attachClickHandler(elem = null) {
             if (rel === 'external' || rel === 'download') {
                 internal = false;
             }
-
             if (download !== false) {
                 internal = false;
             }
             
-
             if (internal) {
                 const route = url.parse($(this).attr("href")).path;
                 
@@ -73,8 +67,6 @@ function attachClickHandler(elem = null) {
                 e.preventDefault();
             }
         }
-        
-
     });
 }
 
@@ -113,6 +105,5 @@ function redirect(from, to) {
 export {
     redirect,
     goto,
-    route,
-    attachClickHandler
+    route
 };
