@@ -1,0 +1,26 @@
+{
+    "name": "Magnus Carlsen",
+    "slug": "magnus",
+    "birthday": "1990-11-30T10:12:01",
+    "bio": "Sven Magnus Oen Carlsen...",
+    "avatar": "https://pbs.twimg.com/profile_images/785748929807781888/NViWqbkH_400x400.jpg",
+    "website": "http://www.magnuscarlsen.com",
+    "games": [
+        {
+            "name": "80th Tata Streel GoA TB",
+            "oponent": "Giri. A",
+            "rounds": [
+                {
+                    "id": 1,
+                    "result": "1-0",
+                    "color": "white"
+                },
+                {
+                    "id": 2,
+                    "result": "patt",
+                    "color": "black"
+                }
+            ]
+        }
+    ]
+}

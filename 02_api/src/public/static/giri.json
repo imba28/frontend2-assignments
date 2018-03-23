@@ -1,0 +1,26 @@
+{
+    "name": "Giri Anish",
+    "slug": "giri",
+    "birthday": "1994-06-28T10:12:01",
+    "bio": "Sven Magnus Oen Carlsen...",
+    "avatar": "https://pbs.twimg.com/profile_images/1252640384/Anish_twitter1_400x400.png",
+    "website": "http://anishgiri.nl/",
+    "games": [
+        {
+            "name": "80th Tata Steel GpA TB",
+            "oponent": "Carlsen, M",
+            "rounds": [
+                {
+                    "id": 1,
+                    "result": "0-1",
+                    "color": "black"
+                },
+                {
+                    "id": 2,
+                    "result": "patt",
+                    "color": "white"
+                }
+            ]
+        }
+    ]
+}
