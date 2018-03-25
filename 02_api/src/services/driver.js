@@ -1,13 +1,15 @@
-import DriversPage from '@/template/drivers.hbs';
-
-export default function () {
-    fetch('http://ergast.com/api/f1/drivers.json')
-        .then(response => response.json())
-        .then(json => json.MRData.DriverTable.Drivers)
-        .then((drivers) => {
-            const container = document.getElementById('container');
-            container.innerHTML = DriversPage({
-                drivers
-            });
-        });
+export default function (slug = null) {
+    const url = slug ?
+        `http://ergast.com/api/f1/drivers/${slug}.json` :
+        'http://ergast.com/api/f1/drivers.json';
+    
+    return new Promise((resolve, reject) => {
+        fetch(url)
+            .then(response => response.json())
+            .then(json => json.MRData.DriverTable.Drivers)
+            .then((drivers) => {
+                resolve(drivers);
+            })
+            .catch(err => reject(err));
+    })
 }
