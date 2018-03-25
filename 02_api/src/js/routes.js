@@ -1,4 +1,5 @@
-import DriverPage from '@/services/driver';
+import DriversPage from '@/template/drivers';
+import DriverPage from '@/template/driver';
 import ErrorPage from '@/template/error.hbs';
 
 const container = document.getElementById('container');
@@ -8,6 +9,7 @@ function render(template, ctx) {
 }
 
 export default {
-    '/drivers': () => DriverPage(),
+    '/drivers': () => DriversPage(),
+    '/driver/:slug': (params) => DriverPage(params['slug']),
     '*': () => render(ErrorPage, {error: '404 - Page not found'})
 }
