@@ -9,7 +9,7 @@ export default function (current, totalResult, link) {
         totalResult,
         template: function(result){
             let i, len, prelink;
-            let html = '<div><ul class="pagination">';
+            let html = '<div><ul class="pagination justify-content-center">';
             if (result.pageCount < 2) {
                 html += '</ul></div>';
                 return html;
@@ -17,7 +17,7 @@ export default function (current, totalResult, link) {
             console.log(this);
             prelink = this.preparePreLink(result.prelink);
             if (result.previous) {
-                html += '<li class="page-item"><a class="page-link" href="' + prelink + result.previous + '">' + this.options.translator('PREVIOUS') + '</a></li>';
+                html += '<li class="page-item"><a class="page-link" href="' + prelink + result.previous + '"><span aria-hidden="true">&laquo;</span><span class="sr-only">' + this.options.translator('PREVIOUS') + '</span></a></li>';
             }
             if (result.range.length) {
                 for (i = 0, len = result.range.length; i < len; i++) {
@@ -29,7 +29,7 @@ export default function (current, totalResult, link) {
                 }
             }
             if (result.next) {
-                html += '<li class="page-item"><a href="' + prelink + result.next + '" class="paginator-next page-link">' + this.options.translator('NEXT') + '</a></li>';
+                html += '<li class="page-item"><a href="' + prelink + result.next + '" class="paginator-next page-link"><span aria-hidden="true">&raquo;</span><span class="sr-only">' + this.options.translator('NEXT') + '</span></a></li>';
             }
             html += '</ul></div>';
             return html;
