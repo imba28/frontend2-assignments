@@ -1,5 +1,3 @@
-import driver from "../template/driver";
-
 let driverCache = [];
 
 export default function (slug = null) {
