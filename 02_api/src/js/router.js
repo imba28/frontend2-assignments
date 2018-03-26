@@ -4,7 +4,7 @@ import $ from 'jquery';
 const routes = new Map();
 
 function route(route, callback = () => {}) {
-    if(route) {
+    if (route) {
         const opt = {
             callback,
             regex: [],
@@ -24,8 +24,7 @@ function route(route, callback = () => {}) {
 
         opt.regex = `^${opt.regex}$`;
         routes.set(route, opt);
-    }
-    else {
+    } else {
         init();
     }
 }
@@ -40,7 +39,7 @@ function init() {
 }
 
 function attachClickHandler() {
-    $(document).on("click", "a[href]", function(e) {
+    $(document).on("click", "a[href]", function (e) {
         const urlParsed = url.parse($(this).attr('href'));
         const rel = $(this).attr("rel") || false;
         const download = $(this).attr("download") || false;
@@ -57,13 +56,13 @@ function attachClickHandler() {
             if (download !== false) {
                 internal = false;
             }
-            
+
             if (internal) {
                 const route = url.parse($(this).attr("href")).path;
-                
+
                 history.pushState(route, '', route);
                 goto(route);
-                
+
                 e.preventDefault();
             }
         }
@@ -76,13 +75,16 @@ function goto(route) {
         const match = regex.exec(route);
 
         if (match !== null) {
+            /*
             const params = {};
             match.shift(); // erster match ist route, also weg damit
             for (let i = 0; i < match.length; i++) { // dynamisches parameterobjekt mit namen => wert erzeugen
                 params[opt.params[i]] = match[i];
             }
+            */
 
-            opt.callback(params);
+            match.shift();
+            opt.callback(...match);
             return;
         }
     }
@@ -95,7 +97,7 @@ function redirect(from, to) {
         from = routes.get(from);
         to = routes.get(to);
 
-        from.callback = function(params) {
+        from.callback = function (params) {
             console.warn('Redirected!'); // TODO
             to.callback(params);
         }
