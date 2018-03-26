@@ -17,3 +17,19 @@
 <p>
     Wiki: <a href="{{driver.url}}" target="_blank" rel="external">{{driver.url}}</a>
 </p>
+<h2>
+    Rennen
+</h2>
+<ul>
+    {{#each results}}
+    <li>
+         {{date}} <strong>{{raceName}} {{season}}</strong>
+         <div>
+             {{#each Results}}
+             <div>Platzierung: {{position}}</div>
+             <div>Zeit: {{Time.time}}</div>
+             {{/each}}
+         </div>
+    </li>
+    {{/each}}
+</ul>
