@@ -11,7 +11,8 @@ function render(template, ctx) {
 
 export default {
     '/drivers': () => DriversPage(),
-    '/driver/:slug': (params) => DriverPage(params['slug']),
-    '/constructors': () => ConstructorsPage
+    '/drivers/page/:page': (page) => DriversPage(page),
+    '/driver/:slug': (driverID) => DriverPage(driverID),
+    '/constructors': () => ConstructorsPage(),
     '*': () => render(ErrorPage, {error: '404 - Page not found'})
 }
