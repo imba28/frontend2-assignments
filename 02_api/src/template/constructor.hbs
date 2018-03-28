@@ -1,0 +1,24 @@
+<div>
+    <button class="btn btn-sm btn-default" onclick="history.go(-1)">
+        zurück
+    </button>
+</div>
+<hr>
+<h1>F1 Konstrukteure > {{constructor.name}}</h1>
+<p>
+    Nationality: {{constructor.nationality}}
+</p>
+<p>
+    Wiki:
+    <a href="{{constructor.url}}" target="_blank" rel="external">{{constructor.url}}</a>
+</p>
+<h2>
+    Drivers
+</h2>
+<ul>
+    {{#each drivers}}
+    <li>
+        <a href="/drivers/{{driverId}}">{{familyName}}, {{givenName}}</a>
+    </li>
+    {{/each}}
+</ul>
