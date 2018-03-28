@@ -4,9 +4,8 @@ import ErrorPage from '@/components/error';
 import ConstructorPage from '@/components/constructor';
 import ConstructorsPage from '@/components/constructors';
 
-const container = document.getElementById('container');
-
 export default {
+    '/': () => DriversPage(),
     '/drivers': () => DriversPage(),
     '/drivers/page/:page': (page) => DriversPage(page),
     '/drivers/:slug': (driverID) => DriverPage(driverID),
