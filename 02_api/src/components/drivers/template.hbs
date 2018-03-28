@@ -1,11 +1,19 @@
-<h1>F1 Piloten</h1>
-<ul>
-    {{#each drivers}}
-    <li>
-        <a href="/drivers/{{driverId}}">
-            {{familyName}}, {{givenName}}
-        </a>
-    </li>
-    {{/each}}
-</ul>
+{{{pagination}}}
+
+<section class="my-3 p-3 bg-white rounded box-shadow mb-4 mt-4">
+    <h3 class="border-bottom border-gray pb-3 mb-0 d-flex justify-content-between">
+        Drivers
+        <span class="badge badge-secondary">{{current}}/{{total}}</span>
+    </h3>
+    <ul class="list-group box-shadow mt-4">
+        {{#each drivers}}
+        <li class="list-group-item">
+            <a href="/drivers/{{driverId}}">
+                {{familyName}}, {{givenName}}
+            </a>
+        </li>
+        {{/each}}
+    </ul>
+</section>
+
 {{{pagination}}}

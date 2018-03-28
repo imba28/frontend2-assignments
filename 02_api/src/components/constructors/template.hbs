@@ -1,12 +1,19 @@
-<h1>Konstrukteure</h1>
-<ul>
-    {{#each constructors}}
-    <li>
-        <a href="/constructors/{{constructorId}}">
-            {{name}}
-        </a>
-    </li>
-    {{/each}}
-</ul>
+{{{pagination}}}
+
+<section class="my-3 p-3 bg-white rounded box-shadow mb-4 mt-4">
+    <h3 class="border-bottom border-gray pb-3 mb-0 d-flex justify-content-between">
+         Constructors
+        <span class="badge badge-secondary">{{current}}/{{total}}</span>            
+    </h3>
+    <ul class="list-group box-shadow mt-4">
+        {{#each constructors}}
+        <li class="list-group-item">
+            <a href="/constructors/{{constructorId}}">
+                {{name}}
+            </a>
+        </li>
+        {{/each}}
+    </ul>
+</section>
 
 {{{pagination}}}

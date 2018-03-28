@@ -1,24 +1,27 @@
+<section class="my-3 p-3 bg-white rounded box-shadow mb-4 mt-4">
+    <h3 class="border-bottom border-gray pb-3 mb-0 d-flex justify-content-between">
+        Constructors &#187; {{constructor.name}}
+        <button class="btn btn-sm btn-default" onclick="history.go(-1)">
+            zurück
+        </button>
+    </h3>
+    <div class="info">
+        <p>
+            <strong>Nationality</strong>: {{constructor.nationality}}
+        </p>
+        <p>
+            <strong>Wiki</strong>:
+            <a href="{{constructor.url}}" target="_blank" rel="external">{{constructor.url}}</a>
+        </p>
+    </div>
+    <h5 class="pt-2">
+        Drivers
+    </h5>
+    <ul class="list-group">
+        {{#each drivers}}
+        <li class="list-group-item">
+            <a href="/drivers/{{driverId}}">{{familyName}}, {{givenName}}</a>
+        </li>
+        {{/each}}
+    </ul>
 <div>
-    <button class="btn btn-sm btn-default" onclick="history.go(-1)">
-        zurück
-    </button>
-</div>
-<hr>
-<h1>Konstrukteure > {{constructor.name}}</h1>
-<p>
-    Nationality: {{constructor.nationality}}
-</p>
-<p>
-    Wiki:
-    <a href="{{constructor.url}}" target="_blank" rel="external">{{constructor.url}}</a>
-</p>
-<h2>
-    Drivers
-</h2>
-<ul>
-    {{#each drivers}}
-    <li>
-        <a href="/drivers/{{driverId}}">{{familyName}}, {{givenName}}</a>
-    </li>
-    {{/each}}
-</ul>

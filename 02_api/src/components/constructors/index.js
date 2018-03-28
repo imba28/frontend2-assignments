@@ -8,7 +8,9 @@ export default function (page = 1) {
             const container = document.getElementById('container');
             container.innerHTML = constructorsPage({
                 constructors: response.data,
-                pagination: paginationWrapper(page, response.total, '/constructors/') 
+                pagination: paginationWrapper(page, response.total, '/constructors/'),
+                current: parseInt(response.offset, 10) + response.data.length,
+                total: response.total
             });
         });
 }

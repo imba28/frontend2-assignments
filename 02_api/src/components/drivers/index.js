@@ -8,7 +8,9 @@ export default function (page = 1) {
             const container = document.getElementById('container');
             container.innerHTML = driversPage({
                 drivers: response.data,
-                pagination: paginationWrapper(page, response.total, '/drivers/')
+                pagination: paginationWrapper(page, response.total, '/drivers/'),
+                current: parseInt(response.offset, 10) + response.data.length,
+                total: response.total
             });
         });
 }
