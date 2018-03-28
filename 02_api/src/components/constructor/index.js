@@ -1,5 +1,5 @@
-import ConstructorPage from './template.hbs';
-import ErrorPage from '@/components/error';
+import constructorPage from './template.hbs';
+import errorPage from '@/components/error';
 import driver from '@/services/driver';
 import constructor from '@/services/constructor';
 
@@ -10,12 +10,12 @@ export default function (slug) {
             const container = document.getElementById('container');
 
             if (constructor.total == 1) {
-                container.innerHTML = ConstructorPage({
+                container.innerHTML = constructorPage({
                     drivers: drivers.data,
                     constructor: constructor.data[0]
                 });
             } else {
-                container.innerHTML = ErrorPage({
+                container.innerHTML = errorPage({
                     error: 'Konstrukteur wurde nicht gefunden!'
                 });
             }

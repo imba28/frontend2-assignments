@@ -1,5 +1,5 @@
-import DriverPage from './template.hbs';
-import ErrorPage from '@/components/error';
+import driverPage from './template.hbs';
+import errorPage from '@/components/error';
 import driver from '@/services/driver';
 import results from '@/services/result';
 
@@ -10,12 +10,12 @@ export default function (slug) {
             const container = document.getElementById('container');
 
             if (driver.total == 1) {   
-                container.innerHTML = DriverPage({
+                container.innerHTML = driverPage({
                     driver: driver.data[0],
                     results: results.data
                 });
             } else {
-                ErrorPage('Pilot wurde nicht gefunden!');
+                errorPage('Pilot wurde nicht gefunden!');
             }
         });
 }
