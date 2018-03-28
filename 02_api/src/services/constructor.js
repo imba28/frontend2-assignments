@@ -1,24 +1,18 @@
 import Result from '@/js/result';
 
-let cache = [];
-
-export default function() {
-    const url = 'http://ergast.com/api/f1/constructors.json';
+export default function(page = 0) {
+    const offset = (page - 1) * 30;
+    const url = `http://ergast.com/api/f1/constructors.json?offset=${offset}`;
 
     return new Promise((resolve, reject) => {
-        if (cache.length > 0) {
-            resolve(cache);
-        } else {
-            fetch(url)
-                .then(response => response.json())
-                .then(json => {
-                    return new Result(json.MRData.ConstructorTable.Constructors, json.MRData.offset, json.MRData.total);
-                })
-                .then((result) => {
-                    cache = result;
-                    resolve(result);
-                })
-                .catch(err => reject(err));
-        }
+        fetch(url)
+            .then(response => response.json())
+            .then(json => {
+                return new Result(json.MRData.ConstructorTable.Constructors, json.MRData.offset, json.MRData.total);
+            })
+            .then((result) => {
+                resolve(result);
+            })
+            .catch(err => reject(err));
     });
 }

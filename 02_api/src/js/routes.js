@@ -14,5 +14,6 @@ export default {
     '/drivers/page/:page': (page) => DriversPage(page),
     '/driver/:slug': (driverID) => DriverPage(driverID),
     '/constructors': () => ConstructorsPage(),
+    '/constructors/page/:page': (page) => ConstructorsPage(page),
     '*': () => render(ErrorPage, {error: '404 - Page not found'})
 }
