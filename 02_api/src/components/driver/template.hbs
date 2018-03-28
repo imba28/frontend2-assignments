@@ -9,6 +9,9 @@
     Name: {{driver.givenName}} {{driver.familyName}}
 </p>
 <p>
+    Age: {{getAge driver.dateOfBirth}}
+</p>
+<p>
     Birthday: {{driver.dateOfBirth}}
 </p>
 <p>
@@ -20,16 +23,30 @@
 <h2>
     Rennen
 </h2>
-<ul>
-    {{#each results}}
-    <li>
-         {{date}} <strong>{{raceName}} {{season}}</strong>
-         <div>
-             {{#each Results}}
-             <div>Platzierung: {{position}}</div>
-             <div>Zeit: {{Time.time}}</div>
-             {{/each}}
-         </div>
-    </li>
+<table class="table">
+    <thead>
+        <th>
+            Year
+        </th>
+        <th>
+            Races
+        </th>
+    </thead>
+    <tbody>
+    {{#each races}}
+    <tr>
+        <td>
+            {{@key}}
+        </td>
+        <td>
+        {{#each this}}
+            <div>
+                <strong>{{name}}</strong>
+                <div>Platzierung: {{ordinal position}}</div>
+            </div>
+        {{/each}}
+         </td>
+    </tr>
     {{/each}}
-</ul>
+    </tbody>
+</table>
