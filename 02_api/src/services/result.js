@@ -1,3 +1,5 @@
+import Result from '@/js/result';
+
 let cache = {};
 
 export default function (driver) {
@@ -7,10 +9,12 @@ export default function (driver) {
         const url = `http://ergast.com/api/f1/drivers/${driver}/results.json`;
         fetch(url)
             .then(response => response.json())
-            .then(json => json.MRData.RaceTable.Races)
-            .then((results) => {
-                cache[driver] = results;
-                resolve(results);
+            .then(json => {
+                return new Result(json.MRData.RaceTable.Races, json.MRData.offset, json.MRData.total);
+            })
+            .then((result) => {
+                cache[driver] = result;
+                resolve(result);
             })
             .catch(err => reject(err));
     });

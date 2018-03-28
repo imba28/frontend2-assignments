@@ -1,3 +1,5 @@
+import Result from '@/js/result';
+
 let cache = [];
 
 export default function() {
@@ -9,10 +11,12 @@ export default function() {
         } else {
             fetch(url)
                 .then(response => response.json())
-                .then(json => json.MRData.ConstructorTable.Constructors)
-                .then((constructors) => {
-                    cache = constructors;
-                    resolve(constructors);
+                .then(json => {
+                    return new Result(json.MRData.ConstructorTable.Constructors, json.MRData.offset, json.MRData.total);
+                })
+                .then((result) => {
+                    cache = result;
+                    resolve(result);
                 })
                 .catch(err => reject(err));
         }

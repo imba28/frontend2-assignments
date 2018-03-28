@@ -4,11 +4,11 @@ import drivers from '@/services/driver';
 
 export default function (page = 1) {
     drivers(null, (page-1) * 30)
-        .then(drivers => {
+        .then(response => {
             const container = document.getElementById('container');
             container.innerHTML = DriversPage({
-                drivers,
-                pagination: paginationWrapper(page, 648, '/drivers/')
+                drivers: response.data,
+                pagination: paginationWrapper(page, response.total, '/drivers/')
             });
         });
 
