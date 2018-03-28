@@ -14,7 +14,7 @@ function route(route, callback = () => {}) {
         opt.regex = route.split('/').map((part) => {
             if (part[0] == ':') {
                 opt.params.push(part.substring(1, part.length));
-                part = '([a-zA-Z0-9\-]+)';
+                part = '([a-zA-Z0-9\-\_]+)';
             } else {
                 if (part == '*') part = '.+';
             }
