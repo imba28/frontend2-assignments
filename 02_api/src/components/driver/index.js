@@ -29,7 +29,7 @@ export default function (slug) {
                     races
                 });
             } else {
-                errorPage('Pilot wurde nicht gefunden!');
+                errorPage('Driver was not found!');
             }
         });
 }

@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '@/css/style.scss';
 
 import Handlebars from 'handlebars';
-import { dateFormat, getAge, ordinal} from '@/js/helper';
+import {dateFormat, getAge, ordinal} from '@/js/helper';
 Handlebars.registerHelper('dateFormat', dateFormat);
 Handlebars.registerHelper('getAge', getAge);
 Handlebars.registerHelper('ordinal', ordinal);

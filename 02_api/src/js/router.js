@@ -75,6 +75,7 @@ function goto(route) {
         const match = regex.exec(route);
 
         if (match !== null) {
+
             /*
             const params = {};
             match.shift(); // erster match ist route, also weg damit

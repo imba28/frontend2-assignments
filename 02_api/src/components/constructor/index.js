@@ -15,9 +15,7 @@ export default function (slug) {
                     constructor: constructor.data[0]
                 });
             } else {
-                container.innerHTML = errorPage({
-                    error: 'Konstrukteur wurde nicht gefunden!'
-                });
+                errorPage('This constructor does not exist!');
             }
         });
 }
