@@ -10,7 +10,7 @@ export default function (options = {}) {
     if (cache[driver]) return Promise.resolve(cache[driver]);
 
     return new Promise((resolve, reject) => {
-        const url = `http://ergast.com/api/f1/drivers/${driver}/results.json`;
+        const url = `http://ergast.com/api/f1/drivers/${driver}/results.json?limit=1000`;
         fetch(url)
             .then(response => response.json())
             .then(json => {
