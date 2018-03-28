@@ -4,7 +4,7 @@ import driver from '@/services/driver';
 import results from '@/services/result';
 
 export default function (slug) {
-    Promise.all([driver(slug), results(slug)])
+    Promise.all([driver({id : slug}), results({driver: slug})])
         .then(json => {
             let [driver, results] = json;
             const container = document.getElementById('container');

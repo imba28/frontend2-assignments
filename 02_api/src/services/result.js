@@ -2,7 +2,11 @@ import Result from '@/js/result';
 
 let cache = {};
 
-export default function (driver) {
+export default function (options = {}) {
+    const {
+        driver = null
+    } = options;
+
     if (cache[driver]) return Promise.resolve(cache[driver]);
 
     return new Promise((resolve, reject) => {
