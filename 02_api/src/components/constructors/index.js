@@ -1,4 +1,4 @@
-import ConstructorsPage from '@/template/constructors.hbs';
+import ConstructorsPage from './template.hbs';
 import constructors from '@/services/constructor';
 import paginationWrapper from '@/js/pagination';
 

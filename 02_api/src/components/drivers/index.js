@@ -1,4 +1,4 @@
-import DriversPage from '@/template/drivers.hbs';
+import DriversPage from './template.hbs';
 import paginationWrapper from '@/js/pagination';
 import drivers from '@/services/driver';
 

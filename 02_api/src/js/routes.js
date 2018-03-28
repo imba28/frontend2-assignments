@@ -1,14 +1,10 @@
-import DriversPage from '@/template/drivers';
-import DriverPage from '@/template/driver';
-import ErrorPage from '@/template/error.hbs';
-import ConstructorPage from '@/template/constructor';
-import ConstructorsPage from '@/template/constructors';
+import DriversPage from '@/components/drivers';
+import DriverPage from '@/components/driver';
+import ErrorPage from '@/components/error';
+import ConstructorPage from '@/components/constructor';
+import ConstructorsPage from '@/components/constructors';
 
 const container = document.getElementById('container');
-
-function render(template, ctx) {
-    container.innerHTML = template(ctx);
-}
 
 export default {
     '/drivers': () => DriversPage(),
@@ -17,5 +13,5 @@ export default {
     '/constructors': () => ConstructorsPage(),
     '/constructors/page/:page': (page) => ConstructorsPage(page),
     '/constructors/:constructor': (constructor) => ConstructorPage(constructor),
-    '*': () => render(ErrorPage, {error: '404 - Page not found'})
+    '*': () => ErrorPage('404 - Page not found')
 }

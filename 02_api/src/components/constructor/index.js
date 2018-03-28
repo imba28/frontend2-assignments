@@ -1,5 +1,5 @@
-import ConstructorPage from '@/template/constructor.hbs';
-import ErrorPage from '@/template/error.hbs';
+import ConstructorPage from './template.hbs';
+import ErrorPage from '@/components/error';
 import driver from '@/services/driver';
 import constructor from '@/services/constructor';
 
