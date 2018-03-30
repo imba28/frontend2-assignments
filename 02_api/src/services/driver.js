@@ -1,4 +1,4 @@
-import Result from '@/js/result';
+import Service from '@/js/service';
 
 export default function (options = {}) {
     let url;
@@ -10,21 +10,12 @@ export default function (options = {}) {
 
     if (manufacturer) {
         url = `http://ergast.com/api/f1/constructors/${manufacturer}/drivers.json`
-    } else if(id) {
+    } else if (id) {
         url = `http://ergast.com/api/f1/drivers/${id}.json`;
     } else {
         url = `http://ergast.com/api/f1/drivers.json?offset=${offset}`;
     }
 
-    return new Promise((resolve, reject) => {
-        fetch(url)
-            .then(response => response.json())
-            .then(json => {
-                return new Result(json.MRData.DriverTable.Drivers, json.MRData.offset, json.MRData.total);
-            })
-            .then((response) => {
-                resolve(response);
-            })
-            .catch(err => reject(err));
-    });
+    const service = new Service('Driver');
+    return service.get(url);
 }

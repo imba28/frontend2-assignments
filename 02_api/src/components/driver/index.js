@@ -1,7 +1,7 @@
 import driverPage from './template.hbs';
 import errorPage from '@/components/error';
 import driver from '@/services/driver';
-import results from '@/services/result';
+import results from '@/services/race';
 
 export default function (slug) {
     Promise.all([driver({id: slug}), results({driver: slug})])
