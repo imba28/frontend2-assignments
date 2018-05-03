@@ -1,9 +1,13 @@
 import constructorsPage from './template.hbs';
-import constructors from '@/services/constructor';
+import Service from '@/js/service';
 import paginationWrapper from '@/js/pagination';
 
+const constructors = new Service('Constructor');
+
 export default function (page = 1) {
-    constructors({offset: (page - 1) * 30})
+    constructors.get({
+        offset: (page - 1) * 30
+    })
         .then(response => {
             const container = document.getElementById('container');
             container.innerHTML = constructorsPage({

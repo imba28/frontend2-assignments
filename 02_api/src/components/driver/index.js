@@ -1,15 +1,23 @@
 import driverPage from './template.hbs';
 import errorPage from '@/components/error';
-import driver from '@/services/driver';
-import results from '@/services/race';
+import Service from '@/js/service';
+
+const driver = new Service('Driver');
 
 export default function (slug) {
-    Promise.all([driver({id: slug}), results({driver: slug})])
-        .then(json => {
-            let [driver, results] = json;
+    driver.get({
+        id: slug,
+        include: 'Result', 
+        map: {
+            Result: 'Race'
+        }
+    })
+        .then(response => {
+            let [driver, results] = response;
             const container = document.getElementById('container');
 
             if (driver.total == 1) {
+                // convert race results to object. each object key represents a year
                 const races = results.data.reduce((obj, race) => {
                     if (!obj[race.season]) {
                         obj[race.season] = [];

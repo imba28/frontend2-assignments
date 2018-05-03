@@ -1,12 +1,16 @@
 import constructorPage from './template.hbs';
 import errorPage from '@/components/error';
-import driver from '@/services/driver';
-import constructor from '@/services/constructor';
+import Service from '@/js/service';
+
+const constructor = new Service('Constructor');
 
 export default function (slug) {
-    Promise.all([driver({manufacturer: slug}), constructor({id: slug})])
+    constructor.get({
+        id: slug,
+        include: 'Driver'
+    })
         .then(json => {
-            let [drivers, constructor] = json;
+            let [constructor, drivers] = json;
             const container = document.getElementById('container');
 
             if (constructor.total == 1) {
