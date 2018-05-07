@@ -44,8 +44,8 @@ app.model({
             }
         },
         tracks: [
-            [locomotive, wagon, wagon, wagon],
-            [locomotive, wagon]
+            [],
+            []
         ]
     },
     reducers: {
@@ -55,22 +55,21 @@ app.model({
             }
             return state;
         },
-        moveWagon: (data, state) => {
-            const add = [];
-
-            if (state.wagons.length > 1) {
-                state.wagons.pop();
-                add.push(wagon);
+        moveWagon: (trackId, state) => {
+            if (state.pools.wagons.current.length > 0) {
+                if (state.tracks[trackId].length === 0) {
+                    if (state.pools.trains.current.length <= 0) {
+                        return state;
+                    }
+                    state.pools.trains.current.pop();
+                    state.tracks[trackId].unshift(locomotive);
+                }
+                
+                state.pools.wagons.current.pop();
+                state.tracks[trackId].push(wagon);
             }
 
-            if (state.gleis.length === 0) {
-                add.push(locomotive);
-            }
-
-            return Object.assign(state, {
-                wagons: state.wagons,
-                gleis: [...state.gleis, ...add]
-            });
+            return state;
         }
     }
 });
@@ -92,13 +91,29 @@ const mainView = (state, prev, send) => html `
       send('addWagon')} class="btn btn-primary">Wagen zu Pool hinzufügen</button>
     <button onclick=${() =>
       send('moveWagon')} class="btn btn-danger">Rangieren</button>
-    
+    <br>
+    <button onclick=${() =>
+        send('moveWagon', 0)} class="btn btn-primary">Add to track 1</button>
+    <button onclick=${() =>
+        send('moveWagon', 1)} class="btn btn-primary">Add to track 2</button>
     ${state.tracks.map((wagons, idx)=> {
         return html`<div class="gleis">
             Gleis ${idx+1}: 
             ${wagons.map((v) => emoji.get(v))}
         </div>`
     })}
+
+    <div class="input-group mb-3">
+        <select class="custom-select" id="inputGroupSelect02">
+            <option selected>Choose...</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+        </select>
+        <div class="input-group-append">
+            <label class="input-group-text" for="inputGroupSelect02">Options</label>
+        </div>
+    </div>
   </main>
 `;
 
