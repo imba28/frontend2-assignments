@@ -70,6 +70,13 @@ app.model({
             }
 
             return state;
+        },
+        abfahrt: (trackId, state) => {
+            if (state.tracks[trackId] && state.tracks[trackId].length > 0) {
+                state.tracks[trackId] = [];
+            }
+            
+            return state
         }
     }
 });
@@ -104,14 +111,14 @@ const mainView = (state, prev, send) => html `
     })}
 
     <div class="input-group mb-3">
-        <select class="custom-select" id="inputGroupSelect02">
-            <option selected>Choose...</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+        <select class="custom-select" id="selectTrack">
+            <option selected>Gleis wählen...</option>
+            <option value="0">Gleis 1</option>
+            <option value="1">Gleis 2</option>
         </select>
-        <div class="input-group-append">
-            <label class="input-group-text" for="inputGroupSelect02">Options</label>
+        <div class="input-group-append"
+        onclick = "${() => send('abfahrt', document.getElementById('selectTrack').value)}" >
+            <label class="input-group-text">Abfahrt!</label>
         </div>
     </div>
   </main>
