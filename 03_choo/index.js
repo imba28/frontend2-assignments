@@ -32,49 +32,64 @@ const locomotive = 'steam_locomotive';
 
 // steam_locomotive
 app.model({
-    state: {
-        pools: {
-            trains: {
-                size: 4,
-                current: [4]
-            },
-            wagons: {
-                size: 10,
-                current: []
-            }
-        },
-        tracks: [
-            [],
-            []
-        ]
+  state: {
+    pools: {
+      trains: {
+        size: 4,
+        current: [locomotive, locomotive, locomotive, locomotive]
+      },
+      wagons: {
+        size: 10,
+        current: []
+      }
     },
-    reducers: {
-        addWagon: (data, state) => {
-            if (state.pools.wagons.current.length < 10) {
-                state.pools.wagons.current.push(1);
-            }
+    tracks: [
+      {
+        size: 4,
+        current: []
+      },
+      {
+        size: 5,
+        current: []
+      }
+    ]
+  },
+  reducers: {
+    addWagon: (data, state) => {
+      if (state.pools.wagons.current.length < 10) {
+        state.pools.wagons.current.push(1);
+      }
+      return state;
+    },
+    moveWagon: (trackId, state) => {
+      if (state.pools.wagons.current.length > 0 && state.tracks[trackId].current.length <= state.tracks[trackId].size) {
+        if (state.tracks[trackId].current.length === 0) {
+          if (state.pools.trains.current.length <= 0) {
             return state;
-        },
-        moveWagon: (trackId, state) => {
-            if (state.pools.wagons.current.length > 0) {
-                if (state.tracks[trackId].length === 0) {
-                    if (state.pools.trains.current.length <= 0) {
-                        return state;
-                    }
-                    state.pools.trains.current.pop();
-                    state.tracks[trackId].unshift(locomotive);
-                }
-                
-                state.pools.wagons.current.pop();
-                state.tracks[trackId].push(wagon);
-            }
-
-            return state;
+          }
+          state.pools.trains.current.pop();
+          state.tracks[trackId].current.unshift(locomotive);
         }
+
+        console.log(state.tracks)
+
+        state.pools.wagons.current.pop();
+        state.tracks[trackId].current.push(wagon);
+      }
+
+      return state;
+    },
+    schedule: (trackId, state) => {
+        if (state.tracks[trackId] && state.tracks[trackId].current.length > 0) {
+            state.tracks[trackId].current = [];
+            state.pools.trains.current.push(locomotive)
+        }
+        return state;
     }
+  }
 });
 
-const mainView = (state, prev, send) => html `
+const mainView = (state, prev, send) => html`
   <main class=${styles}>
     <h1>Rangierbahnhof</h1>
     <hr>
@@ -88,30 +103,30 @@ const mainView = (state, prev, send) => html `
         Trains: ${state.pools.trains.current.map(() => emoji.get(locomotive))}
     </p>
     <button onclick=${() =>
-      send('addWagon')} class="btn btn-primary">Wagen zu Pool hinzufügen</button>
+      send(
+        "addWagon"
+      )} class="btn btn-primary">Wagen zu Pool hinzufügen</button>
     <button onclick=${() =>
-      send('moveWagon')} class="btn btn-danger">Rangieren</button>
-    <br>
+      send("moveWagon", 0)} class="btn btn-primary">Add to track 1</button>
     <button onclick=${() =>
-        send('moveWagon', 0)} class="btn btn-primary">Add to track 1</button>
-    <button onclick=${() =>
-        send('moveWagon', 1)} class="btn btn-primary">Add to track 2</button>
-    ${state.tracks.map((wagons, idx)=> {
-        return html`<div class="gleis">
-            Gleis ${idx+1}: 
-            ${wagons.map((v) => emoji.get(v))}
-        </div>`
+      send("moveWagon", 1)} class="btn btn-primary">Add to track 2</button>
+    ${state.tracks.map((wagons, idx) => {
+      return html`<div class="gleis">
+            Track ${idx + 1}: 
+            ${wagons.current.map(v => emoji.get(v))}
+        </div>`;
     })}
 
     <div class="input-group mb-3">
-        <select class="custom-select" id="inputGroupSelect02">
+        <select class="custom-select" id="selectedTrack">
             <option selected>Choose...</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            ${state.tracks.map((wagons, trackId) => html`<option value="${trackId}">Track ${trackId + 1}</option>`)}
         </select>
         <div class="input-group-append">
-            <label class="input-group-text" for="inputGroupSelect02">Options</label>
+            <button class="btn btn-danger" onclick=${() => send(
+              "schedule",
+              document.getElementById("selectedTrack").value
+            )}>Schedule Train</button>
         </div>
     </div>
   </main>
