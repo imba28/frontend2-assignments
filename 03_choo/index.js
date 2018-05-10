@@ -105,11 +105,11 @@ const mainView = (state, prev, send) => html`
     <button onclick=${() =>
       send(
         "addWagon"
-      )} class="btn btn-primary">Wagen zu Pool hinzufügen</button>
+      )} class="btn btn-primary" ${state.pools.wagons.current.length == state.pools.wagons.size ? `disabled`: ``}>Wagen zu Pool hinzufügen</button>
     <button onclick=${() =>
-      send("moveWagon", 0)} class="btn btn-primary">Add to track 1</button>
+        send("moveWagon", 0)} class="btn btn-primary" ${state.tracks[0].current.length == state.tracks[0].size ? `disabled` : ``}>Add to track 1</button>
     <button onclick=${() =>
-      send("moveWagon", 1)} class="btn btn-primary">Add to track 2</button>
+        send("moveWagon", 1)} class="btn btn-primary" ${state.tracks[1].current.length == state.tracks[1].size ? `disabled` : ``}>Add to track 2</button>
     ${state.tracks.map((wagons, idx) => {
       return html`<div class="gleis">
             Track ${idx + 1}: 
