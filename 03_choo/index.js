@@ -25,12 +25,15 @@ const styles = css`
   h1 {
     color: blue;
   }
+
+  .icons {
+    font-size: 2em;
+  }
 `;
 
 const wagon = 'railway_car';
 const locomotive = 'steam_locomotive';
 
-// steam_locomotive
 app.model({
     state: {
         pools: {
@@ -71,7 +74,7 @@ app.model({
             if (state.tracks[trackID]) {
                 state.selectedTrack = parseInt(trackID);
             }
-            return state;
+            return state;            
         },
         addWagon: (data, state) => {
             if (state.pools.wagons.current.length < 10) {
@@ -120,39 +123,54 @@ const mainView = (state, prev, send) => html`
         Pools
     </h3>
     <p>
-        Wagons: ${state.pools.wagons.current.map(() => emoji.get(wagon))}
+        Wagons: <span class="icons">${state.pools.wagons.current.map(() => emoji.get(wagon))}</span>
     </p>
     <p>
-        Trains: ${state.pools.trains.current.map(() => emoji.get(locomotive))}
+        Trains: <span class="icons">${state.pools.trains.current.map(() => emoji.get(locomotive))}</span>
     </p>
-    <button onclick=${() =>
-        send(
-            "addWagon"
-        )} class="btn btn-primary" ${state.pools.wagons.current.length == state.pools.wagons.size ? `disabled` : ``}>Wagen zu Pool hinzufügen</button>
-    
-    ${state.tracks.map((track, trackId) => {
-        return html`<button onclick=${() => send("moveWagon", trackId)} class="btn btn-primary" ${track.current.length == track.size + 1 ? `disabled` : ``}>Add to track ${trackId + 1}</button>`;
-    })}
-
-    ${state.tracks.map((wagons, idx) => {
-        return html`<div class="gleis">
-            Track ${idx + 1}: 
-            ${wagons.current.map(v => emoji.get(v))}
-        </div>`;
-    })}
-
-    <div class="input-group mb-3 w-25">
+    <div class="input-group mb-3 w-50">
         <select class="custom-select" id="selectedTrack" onchange=${ (e) => send('selectTrack', e.target.value) }>
             <option ${state.selectedTrack == null ? 'selected' : ''}>Choose...</option>
-            ${state.tracks.map((wagons, trackId) => html`<option ${trackId == state.selectedTrack ? 'selected' : ''} value="${trackId}">Track ${trackId + 1}</option>`)}
+            ${state.tracks.map((wagons, trackId) => html`
+            <option ${trackId == state.selectedTrack ? 'selected' : ''} value="${trackId}">
+                Track ${trackId + 1}
+            </option>`
+            )}
         </select>
         <div class="input-group-append">
             <button class="btn btn-danger" onclick=${() => send(
         "schedule",
         document.getElementById("selectedTrack").value
-    )} ${ !canSchedule(state, state.selectedTrack) ? 'disabled' : ''}>Schedule Train</button>
+    )} ${ 
+        !canSchedule(state, state.selectedTrack) ? 
+        'disabled' : ''
+        }>Schedule Train</button>
         </div>
     </div>
+
+    <button onclick=${() =>
+        send(
+            "addWagon"
+        )} class="btn btn-primary" ${state.pools.wagons.current.length == state.pools.wagons.size ? `disabled` : ``}>Wagen zu Pool hinzufügen</button>
+    
+    <button 
+        onclick=${() => send("moveWagon", state.selectedTrack)}
+        class="btn btn-primary" 
+        ${
+            state.pools.wagons.current.length > 0 &&
+            state.tracks[state.selectedTrack] && 
+            state.tracks[state.selectedTrack].current.length != state.tracks[state.selectedTrack].size + 1 
+            ? `` : `disabled`
+        }>Add to track ${state.selectedTrack != null ? `(${state.selectedTrack + 1})` : ''}</button>
+
+    ${state.tracks.map((wagons, idx) => html`
+        <div class="gleis">
+            Track ${idx + 1}: 
+            <span class="icons">
+            ${wagons.current.map(v => emoji.get(v))}
+            </span>
+        </div>`
+    )}
   </main>
 `;
 
