@@ -69,7 +69,7 @@ app.model({
     reducers: {
         selectTrack: (trackID, state) => {
             if (state.tracks[trackID]) {
-                state.selectedTrack = trackID;
+                state.selectedTrack = parseInt(trackID);
             }
             return state;
         },
@@ -107,6 +107,10 @@ app.model({
         }
     }
 });
+
+function canSchedule(state, trackID) {
+    return state.tracks[trackID] && state.tracks[trackID].current.length > 0;
+}
 
 const mainView = (state, prev, send) => html`
   <main class=${styles}>
@@ -146,7 +150,7 @@ const mainView = (state, prev, send) => html`
             <button class="btn btn-danger" onclick=${() => send(
         "schedule",
         document.getElementById("selectedTrack").value
-    )}>Schedule Train</button>
+    )} ${ !canSchedule(state, state.selectedTrack) ? 'disabled' : ''}>Schedule Train</button>
         </div>
     </div>
   </main>
