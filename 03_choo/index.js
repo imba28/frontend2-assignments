@@ -56,10 +56,12 @@ app.model({
     },
     effects: {
         schedule: (trackID, state, send, done) => {
-            send('clearTrack', trackID, done);
-            setTimeout(() => {
-                send('addTrain', null, done);
-            }, 5000)
+            if (state.tracks[trackID]) {
+                send('clearTrack', trackID, done);
+                setTimeout(() => {
+                    send('addTrain', null, done);
+                }, 5000)
+            }
         }
     },
     reducers: {
@@ -78,8 +80,6 @@ app.model({
                     state.pools.trains.current.pop();
                     state.tracks[trackId].current.unshift(locomotive);
                 }
-
-                console.log(state.tracks)
 
                 state.pools.wagons.current.pop();
                 state.tracks[trackId].current.push(wagon);
