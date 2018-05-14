@@ -52,11 +52,13 @@ app.model({
                 size: 5,
                 current: []
             }
-        ]
+        ],
+        selectedTrack: null
     },
     effects: {
         schedule: (trackID, state, send, done) => {
             if (state.tracks[trackID]) {
+                send('selectTrack', trackID, done);
                 send('clearTrack', trackID, done);
                 setTimeout(() => {
                     send('addTrain', null, done);
@@ -65,6 +67,12 @@ app.model({
         }
     },
     reducers: {
+        selectTrack: (trackID, state) => {
+            if (state.tracks[trackID]) {
+                state.selectedTrack = trackID;
+            }
+            return state;
+        },
         addWagon: (data, state) => {
             if (state.pools.wagons.current.length < 10) {
                 state.pools.wagons.current.push(1);
@@ -129,10 +137,10 @@ const mainView = (state, prev, send) => html`
         </div>`;
     })}
 
-    <div class="input-group mb-3">
-        <select class="custom-select" id="selectedTrack">
-            <option selected>Choose...</option>
-            ${state.tracks.map((wagons, trackId) => html`<option value="${trackId}">Track ${trackId + 1}</option>`)}
+    <div class="input-group mb-3 w-25">
+        <select class="custom-select" id="selectedTrack" onchange=${ (e) => send('selectTrack', e.target.value) }>
+            <option ${state.selectedTrack == null ? 'selected' : ''}>Choose...</option>
+            ${state.tracks.map((wagons, trackId) => html`<option ${trackId == state.selectedTrack ? 'selected' : ''} value="${trackId}">Track ${trackId + 1}</option>`)}
         </select>
         <div class="input-group-append">
             <button class="btn btn-danger" onclick=${() => send(
