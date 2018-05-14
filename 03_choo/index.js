@@ -36,7 +36,7 @@ app.model({
         pools: {
             trains: {
                 size: 4,
-                current: [4]
+                current: [locomotive, locomotive, locomotive]
             },
             wagons: {
                 size: 10,
@@ -48,10 +48,23 @@ app.model({
             []
         ]
     },
+    effects: {
+        abfahrt: (data, state, send, done) => {
+            send('clearTrack', data, done);
+
+            setTimeout(() => {
+                send('addTrain', null, done);
+            }, 5000)
+        }
+    },
     reducers: {
+        addTrain: (data, state) => {
+            state.pools.trains.current.push(locomotive);
+            return state;
+        },
         addWagon: (data, state) => {
             if (state.pools.wagons.current.length < 10) {
-                state.pools.wagons.current.push(1);
+                state.pools.wagons.current.push(wagon);
             }
             return state;
         },
@@ -71,11 +84,11 @@ app.model({
 
             return state;
         },
-        abfahrt: (trackId, state) => {
+        clearTrack: (trackId, state) => {
             if (state.tracks[trackId] && state.tracks[trackId].length > 0) {
                 state.tracks[trackId] = [];
             }
-            
+
             return state
         }
     }
@@ -96,31 +109,27 @@ const mainView = (state, prev, send) => html `
     </p>
     <button onclick=${() =>
       send('addWagon')} class="btn btn-primary">Wagen zu Pool hinzufügen</button>
-    <button onclick=${() =>
-      send('moveWagon')} class="btn btn-danger">Rangieren</button>
     <br>
-    <button onclick=${() =>
-        send('moveWagon', 0)} class="btn btn-primary">Add to track 1</button>
-    <button onclick=${() =>
-        send('moveWagon', 1)} class="btn btn-primary">Add to track 2</button>
+    <button onclick=${() => send('moveWagon', 0)} class="btn btn-primary">Add to track 1</button>
+    <button onclick=${() => send('moveWagon', 1)} class="btn btn-primary">Add to track 2</button>
+    <br>
+     <div class="input-group mb-3" style="max-width: 15em">
+        <select class="custom-select" id="selectTrack">
+            <option selected>Gleis wählen...</option>
+            <option value="0">Gleis 1</option>
+            <option value="1">Gleis 2</option>
+        </select>
+        <div class="input-group-append" onclick="${() => send('abfahrt', document.getElementById('selectTrack').value)}">
+            <label class="input-group-text">Abfahrt!</label>
+        </div>
+    </div>
+
     ${state.tracks.map((wagons, idx)=> {
         return html`<div class="gleis">
             Gleis ${idx+1}: 
             ${wagons.map((v) => emoji.get(v))}
         </div>`
     })}
-
-    <div class="input-group mb-3">
-        <select class="custom-select" id="selectTrack">
-            <option selected>Gleis wählen...</option>
-            <option value="0">Gleis 1</option>
-            <option value="1">Gleis 2</option>
-        </select>
-        <div class="input-group-append"
-        onclick = "${() => send('abfahrt', document.getElementById('selectTrack').value)}" >
-            <label class="input-group-text">Abfahrt!</label>
-        </div>
-    </div>
   </main>
 `;
 
