@@ -4,7 +4,9 @@
 <div class="row">
   <div class="col-sm-12">
     <svg class="svg-style" viewBox="0 0 500 100">
-
+      <text x="0" y="1em">
+        Hello there.
+      </text>
     </svg>
   </div>
 </div>
@@ -12,8 +14,16 @@
 <h4>Text w/ Auto-Wrap</h4>
 <div class="row">
   <div class="col-sm-12">
-    <svg class="svg-style" viewBox="0 0 500 100">
-
+    <svg class="svg-style" viewBox="0 0 500 200">
+      <foreignObject x="0" y="1em" width="500" height="200">
+        <p xmlns="http://www.w3.org/1999/xhtml">
+          Bavaria ipsum dolor sit amet a bissal gfreit mi Goaßmaß sog i i waar soweid, wia da Buachbinda Wanninger es Leonhardifahrt!
+          Da samma des Maderln sammawiedaguad. Do legst di nieda Breihaus i bin a woschechta Bayer woaß schoo sog i.
+          <br>Milli Mamalad
+          anbandeln midanand moand auf gehds beim Schichtl baddscher vo de a fescha Bua i sog ja nix, i red ja bloß. Vui mi is Servas
+          dahoam kummd allerweil Watschnbaam barfuaßat, fias.
+        </p>
+      </foreignObject>
     </svg>
   </div>
 </div>
@@ -21,8 +31,30 @@
 <h4>Fancy Text</h4>
 <div class="row">
   <div class="col-sm-12">
-    <svg class="svg-text" viewBox="0 0 900 450">
-
+    <svg class="svg-text" viewBox="0 0 100 100">
+      <defs>
+        <symbol id="text">
+          <text x="0%" y="11%">Hello there.</text>
+        </symbol>
+        <symbol id="border">
+          <text x="0" y="12%" stroke-width="1" fill="none">Hello there.</text>
+        </symbol>
+      </defs>
+      <g stroke="#2accc4">
+        <use href="#border" x=".9%" y="1.25%"></use>
+        <use href="#border" x=".8%" y="1%"></use>
+        <use href="#border" x=".7%" y=".75%"></use>
+        <use href="#border" x=".6%" y=".5%"></use>
+        <use href="#border" x=".5%" y=".25%"></use>
+        <use href="#border" x=".4%"stroke="#1fdfd5"></use>
+      </g>
+      <g fill="#e0e0e0">
+        <use href="#text" x=".4%" y="1%"></use>
+        <use href="#text" x=".3%" y=".75%"></use>
+        <use href="#text" x=".2%" y=".5%"></use>
+        <use href="#text" x=".1%" y=".25%"></use>
+        <use href="#text" fill="#f8f8f8"></use>
+      </g>
     </svg>
   </div>
 </div>

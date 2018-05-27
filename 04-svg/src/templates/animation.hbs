@@ -1,8 +1,30 @@
 <h3>Animation</h3>
 <div class="row">
   <div class="col-sm-12">
-    <svg class="svg-animation" viewBox="0 0 900 450">
-
+    <svg class="svg-text" viewBox="0 0 100 100">
+      <defs>
+        <symbol id="text">
+          <text x="0%" y="11%">Hello there.</text>
+        </symbol>
+        <symbol id="border">
+          <text x="0" y="12%" stroke-width="1" fill="none">Hello there.</text>
+        </symbol>
+      </defs>
+      <g stroke="#2accc4">
+        <use href="#border" x=".9%" y="1.25%"></use>
+        <use href="#border" x=".8%" y="1%"></use>
+        <use href="#border" x=".7%" y=".75%"></use>
+        <use href="#border" x=".6%" y=".5%"></use>
+        <use href="#border" x=".5%" y=".25%"></use>
+        <use href="#border" x=".4%" stroke="#1fdfd5"></use>
+      </g>
+      <g fill="#e0e0e0">
+        <use href="#text" x=".4%" y="1%"></use>
+        <use href="#text" x=".3%" y=".75%"></use>
+        <use href="#text" x=".2%" y=".5%"></use>
+        <use href="#text" x=".1%" y=".25%"></use>
+        <use href="#text" fill="#f8f8f8"></use>
+      </g>
     </svg>
   </div>
 </div>
