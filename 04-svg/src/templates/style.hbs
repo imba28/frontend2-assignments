@@ -11,7 +11,7 @@
         Master Kenobi!
       </text>
       <text x="180" y="50" fill="#00f">
-        You're a bold one.
+        You are a bold one.
       </text>
     </svg>
   </div>
@@ -21,7 +21,13 @@
 <div class="row">
   <div class="col-sm-12">
     <svg class="svg-style" viewBox="0 0 500 100">
+      <pattern id="pattern" width=".01" height=".1" patternTransform="rotate(15 0 0)">
+        <animateTransform attributeName="patternTransform" type="translate" by="80" dur="5s" begin="0s" repeatCount="indefinite"/>
+        <rect width="1" height="100" fill="#f00"></rect>
+      </pattern>
+      <rect id="bar" fill="url(#pattern)" height="100" width="500">
 
+      </rect>
     </svg>
   </div>
 </div>
